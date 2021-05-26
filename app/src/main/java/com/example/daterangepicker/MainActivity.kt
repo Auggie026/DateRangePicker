@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.daterangepicker.databinding.ActivityMainBinding
 import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +16,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        showDateRangePicker()
+        binding.btnShowDateRangePicker.setOnClickListener {
+            showDateRangePicker()
+        }
     }
 
 
@@ -35,10 +39,19 @@ class MainActivity : AppCompatActivity() {
             val startDate = datePicked.first
             val endDate = datePicked.second
 
-            binding.tvDateRange.text = "StartDate: $startDate" +
-            "\nEndDate: $endDate"
-
-
+            binding.tvDateRange.text =
+                "StartDate: " + convertLongToDate(startDate) +
+                "\nEndDate: " + convertLongToDate(endDate)
         }
+    }
+
+    private fun convertLongToDate(time:Long):String{
+
+        val date = Date(time)
+        val format = SimpleDateFormat(
+            "dd-MM-yyyy",
+            Locale.getDefault()
+        )
+        return format.format(date)
     }
 }
