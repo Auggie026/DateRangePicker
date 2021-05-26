@@ -2,13 +2,17 @@ package com.example.daterangepicker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import com.example.daterangepicker.databinding.ActivityMainBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         showDateRangePicker()
     }
@@ -28,12 +32,13 @@ class MainActivity : AppCompatActivity() {
 
         dateRangePicker.addOnPositiveButtonClickListener { datePicked ->
 
-            val starDate = datePicked.first
-            val secondDate = datePicked.second
+            val startDate = datePicked.first
+            val endDate = datePicked.second
 
-            Toast.makeText(this,
-            "$starDate $secondDate",
-            Toast.LENGTH_SHORT).show()
+            binding.tvDateRange.text = "StartDate: $startDate" +
+            "\nEndDate: $endDate"
+
+
         }
     }
 }
